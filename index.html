@@ -154,23 +154,27 @@
       cursor: pointer;
     }
 
-    /* Botão da música */
     .botao-musica {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      padding: 10px 14px;
-      border: 1px solid #efd1dc;
-      border-radius: 25px;
-      opacity: 0;
-      color: #8e4961;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 6px 18px rgba(100, 45, 65, 0.12);
-      cursor: pointer;
-      pointer-events: none;
-      transition: 1s 1.5s;
-      z-index: 12;
-    }
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 10px 14px;
+  border: 1px solid #efd1dc;
+  border-radius: 25px;
+  opacity: 0;
+  color: #8e4961;
+  background: white;
+  cursor: pointer;
+  pointer-events: none;
+  transition: 1s;
+  z-index: 12;
+}
+
+.aberto .botao-musica {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 
     /* Flores e fotos em volta da carta */
     .flores {
@@ -284,7 +288,6 @@
     .aberto .foto-2 { transform: rotate(7deg); }
     .aberto .foto-3 { transform: rotate(-5deg); }
     .aberto .petala { animation: cair var(--tempo) var(--atraso) linear infinite; }
-    .aberto .botao-musica { opacity: 1; pointer-events: auto; }
 
     /* Ajustes para celular */
     @media (max-width: 700px) {
@@ -352,12 +355,6 @@
 
 <body>
   <main class="pagina" id="pagina">
-    <!-- Música de fundo -->
-    <audio id="musica" preload="auto">
-      <source src="assets/musica.mp3" type="audio/mpeg">
-    </audio>
-    <button class="botao-musica" id="botaoMusica">♫ Pausar</button>
-
     <!-- Flores suaves que aparecem no fundo -->
     <img class="flor-fundo flor-1" src="assets/flores.png" alt="">
     <img class="flor-fundo flor-2" src="assets/flores.png" alt="">
@@ -372,24 +369,70 @@
       <span class="aviso">toque para abrir</span>
     </button>
 
+    <audio id="musica" preload="auto">
+  <source src="assets/musica.mp3" type="audio/mpeg">
+</audio>
+
+<button class="botao-musica" id="botaoMusica">♫ Pausar</button>
+
     <!-- Texto da carta -->
-    <article class="carta" id="carta">
-      <button class="fechar" id="botaoFechar" aria-label="Fechar a carta">×</button>
-      <h1>Meu amor,</h1>
-      <p>Beatriz, desde que você chegou, os meus dias ganharam um tipo diferente de beleza — daquela que aparece nas pequenas coisas, nos sorrisos inesperados e na vontade de dividir a vida.</p>
-      <p>Você é carinho, paz e alegria. É a pessoa que transforma momentos simples em lembranças que eu quero guardar para sempre.</p>
-      <p>Fiz esta pequena surpresa para te lembrar que, entre todas as flores do mundo, é você quem deixa a minha vida mais bonita.</p>
-      <p class="assinatura">Com todo o meu amor, sempre. ♡</p>
-    </article>
+  <article class="carta" id="carta">
+  <button class="fechar" id="botaoFechar" aria-label="Fechar a carta">×</button>
+
+  <h1>Meu amor</h1>
+
+<p> 
+  Eu não queria fazer uma cartinha falando só que você é linda, 
+  especial e que eu gosto muito de você, porque isso você já sabe. 
+  Queria falar mais sobre o quanto você se tornou importante pra mim ao longo desse tempo que a gente tá junto. 
+</p>
+
+<p>
+  Você virou a pessoa que eu quero contar tudo, mandar mensagem por qualquer besteira
+  e falar sobre as coisas que acontecem no meu dia. Às vezes acontece alguma coisa e
+  eu já penso em você ou em como você ia rir, reagir daquilo.
+</p>
+
+<p>
+  Eu gosto muito das nossas conversas, das brincadeiras, das besteiras que a gente fala
+  e também dos momentos mais sérios. Gosto até quando a gente fica implicando um com o outro.
+</p>
+
+<p>
+  É muito doido lele pensar no quanto você se tornou importante pra mim. Eu sinto sua falta
+  quando a gente não se vê, fico feliz quando sei que vou ficar com você e às vezes
+  só receber uma mensagem sua já deixa meu dia melhor.
+</p>
+
+<p>
+  Eu não sei como vão ser as coisas daqui pra frente, mas sei que quero continuar
+  vivendo tudo isso com você, aproveitando nossos momentos e criando cada vez mais
+  lembranças juntos.
+</p>
+
+<p>
+  Obrigado por estar na minha vida e por ser uma pessoa tão importante pra mim.
+  Eu gosto muito de ter você comigo.
+</p>
+
+<p>
+ EU TE AMO MUUUUUUIIIIIIIITOOOOOO
+</p>
+
+<p class="assinatura">
+  Com todo meu amor,<br>
+  seu amor ❤️
+</p>
+</article>
 
     <!-- Flores que crescem quando a carta abre -->
     <img class="flores flores-esquerda" src="assets/flores.png" alt="">
     <img class="flores flores-direita" src="assets/flores.png" alt="">
 
     <!-- Depois é só trocar estes espaços pelas fotos de vocês -->
-    <div class="foto foto-1"><img src="assets/foto1.jpeg" alt="Nossa foto"><span>nossa foto</span></div>
-    <div class="foto foto-2"><img src="assets/foto2.jpeg" alt="Nossa foto"><span>nossa foto</span></div>
-    <div class="foto foto-3"><img src="assets/foto3.jpeg" alt="Nossa foto"><span>nossa foto</span></div>
+    <div class="foto foto-1"><img src="assets/foto1.jpeg" alt="Nossa foto"><span>25.09</span></div>
+    <div class="foto foto-2"><img src="assets/foto2.jpeg" alt="Nossa foto"><span>07.08</span></div>
+    <div class="foto foto-3"><img src="assets/foto3.jpeg" alt="Nossa foto"><span>18.09</span></div>
   </main>
 
   <script>
@@ -397,42 +440,14 @@
     const pagina = document.getElementById('pagina');
     const botaoAbrir = document.getElementById('botaoAbrir');
     const botaoFechar = document.getElementById('botaoFechar');
-    const musica = document.getElementById('musica');
-    const botaoMusica = document.getElementById('botaoMusica');
-    let musicaComecou = false;
 
     // Abrir e fechar a carta
     botaoAbrir.onclick = function () {
       pagina.classList.add('aberto');
-
-      // A música começa aos 28 segundos
-      if (!musicaComecou) {
-        musica.currentTime = 28;
-        musica.volume = 0.45;
-        musica.play();
-        musicaComecou = true;
-      }
     };
 
     botaoFechar.onclick = function () {
       pagina.classList.remove('aberto');
-    };
-
-    // Pausar ou continuar a música
-    botaoMusica.onclick = function () {
-      if (musica.paused) {
-        musica.play();
-        botaoMusica.textContent = '♫ Pausar';
-      } else {
-        musica.pause();
-        botaoMusica.textContent = '♫ Continuar';
-      }
-    };
-
-    // Quando terminar, voltar para os 28 segundos
-    musica.onended = function () {
-      musica.currentTime = 28;
-      musica.play();
     };
 
     // Criar as pétalas que caem pela tela
@@ -444,6 +459,36 @@
       petala.style.setProperty('--atraso', Math.random() * 10 + 's');
       pagina.appendChild(petala);
     }
+
+    const musica = document.getElementById('musica');
+const botaoMusica = document.getElementById('botaoMusica');
+let musicaComecou = false;
+
+// Coloque isto dentro da função que abre o envelope
+if (!musicaComecou) {
+  musica.currentTime = 28;
+  musica.volume = 0.45;
+  musica.play();
+  musicaComecou = true;
+}
+
+// Pausar ou continuar
+botaoMusica.onclick = function () {
+  if (musica.paused) {
+    musica.play();
+    botaoMusica.textContent = '♫ Pausar';
+  } else {
+    musica.pause();
+    botaoMusica.textContent = '♫ Continuar';
+  }
+};
+
+// Repetir começando aos 28 segundos
+musica.onended = function () {
+  musica.currentTime = 28;
+  musica.play();
+};
+
   </script>
 </body>
 </html>
