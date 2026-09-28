@@ -435,61 +435,60 @@
     <div class="foto foto-3"><img src="assets/foto3.jpeg" alt="Nossa foto"><span>18.09</span></div>
   </main>
 
-  <script>
-    // Pegando os elementos da página
-    const pagina = document.getElementById('pagina');
-    const botaoAbrir = document.getElementById('botaoAbrir');
-    const botaoFechar = document.getElementById('botaoFechar');
+<script>
+  const pagina = document.getElementById('pagina');
+  const botaoAbrir = document.getElementById('botaoAbrir');
+  const botaoFechar = document.getElementById('botaoFechar');
+  const musica = document.getElementById('musica');
+  const botaoMusica = document.getElementById('botaoMusica');
 
-    // Abrir e fechar a carta
-botaoAbrir.onclick = function () {
-  pagina.classList.add('aberto');
+  let musicaComecou = false;
 
-  if (!musicaComecou) {
-    musica.currentTime = 30;
-    musica.volume = 0.45;
-    musica.play();
-    musicaComecou = true;
-  }
-};
+  // Abrir a carta e começar a música
+  botaoAbrir.onclick = function () {
+    pagina.classList.add('aberto');
 
-    botaoFechar.onclick = function () {
-      pagina.classList.remove('aberto');
-    };
-
-    // Criar as pétalas que caem pela tela
-    for (let i = 0; i < 25; i++) {
-      const petala = document.createElement('span');
-      petala.className = 'petala';
-      petala.style.left = Math.random() * 100 + '%';
-      petala.style.setProperty('--tempo', 11 + Math.random() * 8 + 's');
-      petala.style.setProperty('--atraso', Math.random() * 10 + 's');
-      pagina.appendChild(petala);
+    if (!musicaComecou) {
+      musica.currentTime = 28;
+      musica.volume = 0.45;
+      musicaComecou = true;
     }
 
-    const musica = document.getElementById('musica');
-const botaoMusica = document.getElementById('botaoMusica');
-let musicaComecou = false;
-
-
-
-// Pausar ou continuar
-botaoMusica.onclick = function () {
-  if (musica.paused) {
     musica.play();
     botaoMusica.textContent = '♫ Pausar';
-  } else {
-    musica.pause();
-    botaoMusica.textContent = '♫ Continuar';
+  };
+
+  // Fechar a carta
+  botaoFechar.onclick = function () {
+    pagina.classList.remove('aberto');
+  };
+
+  // Pausar ou continuar a música
+  botaoMusica.onclick = function () {
+    if (musica.paused) {
+      musica.play();
+      botaoMusica.textContent = '♫ Pausar';
+    } else {
+      musica.pause();
+      botaoMusica.textContent = '♫ Continuar';
+    }
+  };
+
+  // Repetir a partir dos 28 segundos
+  musica.onended = function () {
+    musica.currentTime = 28;
+    musica.play();
+  };
+
+  // Criar as pétalas
+  for (let i = 0; i < 25; i++) {
+    const petala = document.createElement('span');
+    petala.className = 'petala';
+    petala.style.left = Math.random() * 100 + '%';
+    petala.style.setProperty('--tempo', 11 + Math.random() * 8 + 's');
+    petala.style.setProperty('--atraso', Math.random() * 10 + 's');
+    pagina.appendChild(petala);
   }
-};
-
-// Repetir começando aos 28 segundos
-musica.onended = function () {
-  musica.currentTime = 28;
-  musica.play();
-};
-
-  </script>
+</script>
 </body>
 </html>
