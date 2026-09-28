@@ -442,9 +442,16 @@
     const botaoFechar = document.getElementById('botaoFechar');
 
     // Abrir e fechar a carta
-    botaoAbrir.onclick = function () {
-      pagina.classList.add('aberto');
-    };
+botaoAbrir.onclick = function () {
+  pagina.classList.add('aberto');
+
+  if (!musicaComecou) {
+    musica.currentTime = 30;
+    musica.volume = 0.45;
+    musica.play();
+    musicaComecou = true;
+  }
+};
 
     botaoFechar.onclick = function () {
       pagina.classList.remove('aberto');
@@ -464,13 +471,7 @@
 const botaoMusica = document.getElementById('botaoMusica');
 let musicaComecou = false;
 
-// Coloque isto dentro da função que abre o envelope
-if (!musicaComecou) {
-  musica.currentTime = 28;
-  musica.volume = 0.45;
-  musica.play();
-  musicaComecou = true;
-}
+
 
 // Pausar ou continuar
 botaoMusica.onclick = function () {
