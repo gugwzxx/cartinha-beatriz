@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Beatriz</title>
+  <meta name="description" content="Uma carta feita com amor para Beatriz">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23d05b82' d='M32 54S8 41 8 22C8 8 26 5 32 17 38 5 56 8 56 22 56 41 32 54 32 54Z'/%3E%3C/svg%3E">
+
+  <style>
+    /* Configuração geral da página */
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: #5b3743;
+      background: linear-gradient(145deg, #fff9fb, #f8dce7);
+    }
+
+    .pagina {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Envelope */
+    .envelope {
+      position: relative;
+      width: 390px;
+      max-width: 80vw;
+      height: 255px;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      background: #efaec4;
+      border-radius: 15px;
+      box-shadow: 0 25px 40px rgba(130, 65, 85, 0.22);
+      transition: 1.4s;
+      z-index: 5;
+    }
+
+    .envelope:hover { transform: translateY(-6px); }
+
+    .frente {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, #f8cade, #e998b4);
+      clip-path: polygon(0 10%, 50% 66%, 100% 10%, 100% 100%, 0 100%);
+      border-radius: 15px;
+      z-index: 3;
+    }
+
+    .tampa {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 65%;
+      background: linear-gradient(160deg, #f9d3e1, #eeaac1);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: 1.5s;
+      z-index: 4;
+    }
+
+    .selo {
+      position: absolute;
+      top: 58%;
+      left: 50%;
+      width: 65px;
+      height: 65px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      color: white;
+      font: bold 24px Georgia, serif;
+      background: #cf5c82;
+      box-shadow: 0 6px 13px rgba(100, 35, 55, 0.25);
+      z-index: 6;
+    }
+
+    .aviso {
+      position: absolute;
+      left: 50%;
+      bottom: -50px;
+      width: 200px;
+      transform: translateX(-50%);
+      color: #9a6174;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: piscar 2.5s infinite;
+    }
+
+    @keyframes piscar { 50% { opacity: 0.4; } }
+
+    /* Carta */
+    .carta {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      max-width: 88vw;
+      max-height: 78vh;
+      padding: 55px 60px 45px;
+      overflow-y: auto;
+      transform: translate(-50%, 15%) scale(0.7);
+      opacity: 0;
+      pointer-events: none;
+      border: 1px solid #f1dce3;
+      border-radius: 7px;
+      background: #fffdfb;
+      box-shadow: 0 28px 65px rgba(105, 48, 68, 0.2);
+      transition: 1.8s 0.7s;
+      z-index: 8;
+    }
+
+    .carta h1 {
+      margin: 0 0 22px;
+      color: #7d3851;
+      font: bold 44px Georgia, serif;
+    }
+
+    .carta p {
+      margin: 0 0 17px;
+      font: 21px/1.65 Georgia, serif;
+    }
+
+    .assinatura {
+      color: #a34868;
+      font-style: italic !important;
+    }
+
+    .fechar {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #efd7df;
+      border-radius: 50%;
+      color: #8e4961;
+      background: white;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    /* Flores e fotos em volta da carta */
+    .flores {
+      position: absolute;
+      bottom: -12%;
+      width: 48vw;
+      max-width: 560px;
+      opacity: 0;
+      transition: 2.5s 0.8s;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .flores-esquerda {
+      left: -7%;
+      transform: translateY(35%) scale(0.6);
+    }
+
+    .flores-direita {
+      right: -7%;
+      transform: translateY(35%) scale(-0.6, 0.6);
+    }
+
+    .flor-fundo {
+      position: absolute;
+      width: 250px;
+      opacity: 0.14;
+      pointer-events: none;
+      animation: balancar 7s ease-in-out infinite alternate;
+    }
+
+    .flor-1 { top: -80px; left: -70px; transform: rotate(165deg); }
+    .flor-2 { top: -80px; right: -70px; transform: scaleX(-1) rotate(165deg); }
+    .flor-3 { bottom: -130px; left: 18%; }
+    .flor-4 { bottom: -130px; right: 18%; transform: scaleX(-1); }
+
+    @keyframes balancar {
+      from { margin-left: -5px; }
+      to { margin-left: 8px; }
+    }
+
+    .foto {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      width: 155px;
+      height: 185px;
+      padding: 10px 10px 35px;
+      opacity: 0;
+      color: #a36378;
+      text-align: center;
+      font: italic 15px Georgia, serif;
+      background: white;
+      box-shadow: 0 14px 30px rgba(80, 40, 55, 0.16);
+      transition: 1.6s 1.4s;
+      z-index: 4;
+    }
+
+    .foto img {
+      width: 100%;
+      flex: 1;
+      min-height: 0;
+      object-fit: cover;
+      object-position: center;
+      margin-bottom: 7px;
+    }
+
+    .foto-1 { top: 13%; left: 5%; transform: rotate(-8deg) translateY(40px); }
+    .foto-2 { top: 16%; right: 5%; transform: rotate(7deg) translateY(40px); }
+    .foto-3 { right: 10%; bottom: 8%; transform: rotate(-5deg) translateY(40px); }
+
+    /* Pétalas criadas pelo JavaScript */
+    .petala {
+      position: absolute;
+      top: -30px;
+      width: 11px;
+      height: 18px;
+      opacity: 0;
+      border-radius: 100% 0 100% 0;
+      background: #f2aec5;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @keyframes cair {
+      0% { opacity: 0; transform: translateY(-30px) rotate(0); }
+      15% { opacity: 0.8; }
+      100% { opacity: 0; transform: translateY(110vh) rotate(540deg); }
+    }
+
+    /* O que acontece quando o envelope é aberto */
+    .aberto .envelope {
+      opacity: 0;
+      transform: translateY(30vh) scale(0.7);
+      pointer-events: none;
+    }
+
+    .aberto .tampa { transform: rotateX(180deg); }
+
+    .aberto .carta {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: auto;
+    }
+
+    .aberto .flores { opacity: 0.95; }
+    .aberto .flores-esquerda { transform: translateY(0) scale(1); }
+    .aberto .flores-direita { transform: translateY(0) scale(-1, 1); }
+    .aberto .foto { opacity: 1; }
+    .aberto .foto-1 { transform: rotate(-8deg); }
+    .aberto .foto-2 { transform: rotate(7deg); }
+    .aberto .foto-3 { transform: rotate(-5deg); }
+    .aberto .petala { animation: cair var(--tempo) var(--atraso) linear infinite; }
+
+    /* Ajustes para celular */
+    @media (max-width: 700px) {
+      .envelope {
+        width: 82vw;
+        height: 54vw;
+        max-height: 235px;
+      }
+
+      .carta {
+        top: 38%;
+        width: 92vw;
+        max-width: none;
+        max-height: 61vh;
+        padding: 62px 22px 30px;
+      }
+
+      .carta h1 { font-size: 34px; }
+      .carta p { font-size: 18px; line-height: 1.55; }
+      .flores { width: 78vw; bottom: -5%; }
+      .flores-esquerda { left: -36%; }
+      .flores-direita { right: -39%; }
+      .flor-fundo { width: 48vw; }
+
+      .foto {
+        width: 90px;
+        height: 118px;
+        padding: 6px 6px 25px;
+        font-size: 13px;
+      }
+
+      .foto-1 {
+        top: auto;
+        bottom: 1.5vh;
+        left: 8px;
+      }
+
+      .foto-2 {
+        top: auto;
+        right: 8px;
+        bottom: 1.5vh;
+      }
+
+      .foto-3 {
+        display: flex;
+        right: auto;
+        bottom: 1.5vh;
+        left: 50%;
+        transform: translateX(-50%) translateY(40px);
+      }
+
+      .aberto .foto-3 {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="pagina" id="pagina">
+    <!-- Flores suaves que aparecem no fundo -->
+    <img class="flor-fundo flor-1" src="assets/flores.png" alt="">
+    <img class="flor-fundo flor-2" src="assets/flores.png" alt="">
+    <img class="flor-fundo flor-3" src="assets/flores.png" alt="">
+    <img class="flor-fundo flor-4" src="assets/flores.png" alt="">
+
+    <!-- Envelope principal -->
+    <button class="envelope" id="botaoAbrir" aria-label="Abrir a carta">
+      <span class="tampa"></span>
+      <span class="frente"></span>
+      <span class="selo">B</span>
+      <span class="aviso">toque para abrir</span>
+    </button>
+
+    <!-- Texto da carta -->
+  <article class="carta" id="carta">
+  <button class="fechar" id="botaoFechar" aria-label="Fechar a carta">×</button>
+
+  <h1>Meu amor</h1>
+
+<p> 
+  Eu não queria fazer uma cartinha falando só que você é linda, 
+  especial e que eu gosto muito de você, porque isso você já sabe. 
+  Queria falar mais sobre o quanto você se tornou importante pra mim ao longo desse tempo que a gente tá junto. 
+</p>
+
+<p>
+  Você virou a pessoa que eu quero contar tudo, mandar mensagem por qualquer besteira
+  e falar sobre as coisas que acontecem no meu dia. Às vezes acontece alguma coisa e
+  eu já penso em você ou em como você ia rir, reagir daquilo.
+</p>
+
+<p>
+  Eu gosto muito das nossas conversas, das brincadeiras, das besteiras que a gente fala
+  e também dos momentos mais sérios. Gosto até quando a gente fica implicando um com o outro.
+</p>
+
+<p>
+  É muito doido lele pensar no quanto você se tornou importante pra mim. Eu sinto sua falta
+  quando a gente não se vê, fico feliz quando sei que vou ficar com você e às vezes
+  só receber uma mensagem sua já deixa meu dia melhor.
+</p>
+
+<p>
+  Eu não sei como vão ser as coisas daqui pra frente, mas sei que quero continuar
+  vivendo tudo isso com você, aproveitando nossos momentos e criando cada vez mais
+  lembranças juntos.
+</p>
+
+<p>
+  Obrigado por estar na minha vida e por ser uma pessoa tão importante pra mim.
+  Eu gosto muito de ter você comigo.
+</p>
+
+<p>
+ EU TE AMO MUUUUUUIIIIIIIITOOOOOO
+</p>
+
+<p class="assinatura">
+  Com todo meu amor,<br>
+  seu amor ❤️
+</p>
+</article>
+
+    <!-- Flores que crescem quando a carta abre -->
+    <img class="flores flores-esquerda" src="assets/flores.png" alt="">
+    <img class="flores flores-direita" src="assets/flores.png" alt="">
+
+    <!-- Depois é só trocar estes espaços pelas fotos de vocês -->
+    <div class="foto foto-1"><img src="assets/foto1.jpeg" alt="Nossa foto"><span>25.09</span></div>
+    <div class="foto foto-2"><img src="assets/foto2.jpeg" alt="Nossa foto"><span>07.08</span></div>
+    <div class="foto foto-3"><img src="assets/foto3.jpeg" alt="Nossa foto"><span>18.09</span></div>
+  </main>
+
+  <script>
+    // Pegando os elementos da página
+    const pagina = document.getElementById('pagina');
+    const botaoAbrir = document.getElementById('botaoAbrir');
+    const botaoFechar = document.getElementById('botaoFechar');
+
+    // Abrir e fechar a carta
+    botaoAbrir.onclick = function () {
+      pagina.classList.add('aberto');
+    };
+
+    botaoFechar.onclick = function () {
+      pagina.classList.remove('aberto');
+    };
+
+    // Criar as pétalas que caem pela tela
+    for (let i = 0; i < 25; i++) {
+      const petala = document.createElement('span');
+      petala.className = 'petala';
+      petala.style.left = Math.random() * 100 + '%';
+      petala.style.setProperty('--tempo', 11 + Math.random() * 8 + 's');
+      petala.style.setProperty('--atraso', Math.random() * 10 + 's');
+      pagina.appendChild(petala);
+    }
+  </script>
+</body>
+</html>
